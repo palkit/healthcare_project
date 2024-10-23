@@ -1,27 +1,36 @@
-// Import express
-const express = require('express');
-const connectDb = require("./config/dbConnection");
+const express= require("express");
+const connectDb= require("./config/dbConnection");
 const errorHandler = require("./middleware/errorHandler");
-const cors = require("cors");
+const cors= require ("cors");
 
 //env file config
-const dotenv = require("dotenv");
+const dotenv=require("dotenv");
 dotenv.config();
-
 
 connectDb();
 const app = express();
-const port = process.env.PORT || 5000;
-
-app.use(express.json())
+const port= process.env.PORT || 5000;
+app.set('view engine', 'hbs');
+app.use(express.json());
 app.use(cors());
+//error handling middleware
+app.use(errorHandler);
 
-// Define a route for the root URL
-app.get('/', (req, res) => {
-    res.send('Working......');
+//ROUTES BELOW
+app.get('/',(req,res)=>{
+    res.send("working")
 });
+app.get("/home",(req,res)=>{
+    res.render("home",{})  
+})
+app.get("/allusers",(req,res)=>{
+    res.render("user",{
+        users:[{id:1,username:"Palkit",age:21},
+            {id:2,username:"ram",age:20}]
+    })
+})
 
-// Start the server on port 3000
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+
+app.listen(port,()=>{
+    console.log(`Server is running on port http://localhost:${port}`);
 });
