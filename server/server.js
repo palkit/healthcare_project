@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 
 app.get("/home", (req, res) => {
     res.render("home", { 
-        username: "Piyush",
+        username: "palkit",
         age: 20,
     });
 });
