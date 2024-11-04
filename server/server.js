@@ -40,7 +40,7 @@ app.get("/user",(req,res)=>{
         ]
     })
 })
-
+//server
 
 app.get("/home",(req,res)=>{
     res.render("home",{})
