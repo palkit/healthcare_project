@@ -32,8 +32,8 @@ app.get("/", (req, res) => {
 
 app.get("/home", (req, res) => {
     res.render("home", { 
-        username: "Palkit",
-        age: 21,
+        username: "Piyush",
+        age: 20,
     });
 });
 
