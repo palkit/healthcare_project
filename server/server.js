@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 app.get("/home", (req, res) => {
     res.render("home", { 
         username: "palkit",
-        age: 20,
+        age: 21,
     });
 });
 
