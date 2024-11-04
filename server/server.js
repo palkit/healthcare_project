@@ -1,38 +1,54 @@
-const express= require("express");
-const connectDb= require("./config/dbConnection");
-const errorHandler = require("./middleware/errorHandler");
-const cors= require ("cors");
+const express = require("express");
+const connectDb = require("./config/dbConnection");
+const errorHandler = require("./middlewares/errorHandler");
+const cors = require("cors");
+const hbs = require("hbs");
+const path = require("path");
 
-//env file config
-const dotenv=require("dotenv");
+// env file config
+const dotenv = require("dotenv");
 dotenv.config();
 
 connectDb();
 const app = express();
-const port= process.env.PORT || 5000;
-app.set('view engine', 'hbs');
+const port = process.env.PORT || 5000;
+
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/register",require("./routes/userRoutes"));
-//error handling middleware
+// using hbs as the view engine
+app.set('view engine', 'hbs');
+
+// Register partials
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
+
+// Route for user registration and authentication
+app.use("/api/register", require("./routes/userRoutes"));
+
+// Routes below
+app.get("/", (req, res) => {
+    res.send("working");
+});
+
+app.get("/home", (req, res) => {
+    res.render("home", { 
+        username: "Palkit",
+        age: 21,
+    });
+});
+
+app.get("/user", (req, res) => {
+    const users = [
+        { username: "a", age: 20 },
+        { username: "b", age: 22 },
+        { username: "c", age: 21 }
+    ];
+    res.render("user", { users });
+});
+
+// Error handling middleware should be at the end
 app.use(errorHandler);
 
-//ROUTES BELOW
-app.get('/',(req,res)=>{
-    res.send("working")
-});
-app.get("/home",(req,res)=>{
-    res.render("home",{})  
-})
-app.get("/allusers",(req,res)=>{
-    res.render("user",{
-        users:[{id:1,username:"prabal",age:19},
-            {id:2,username:"ram",age:20}]
-    })
-})
-
-
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`Server is running on port http://localhost:${port}`);
 });
