@@ -1,0 +1,51 @@
+POST: Register a Doctor
+http://localhost:3000/api/doctors/register
+Method: POST
+Body (JSON):
+{
+    "name": "Dr. John Doe",
+    "email": "johndoe@example.com",
+    "speciality": "Cardiology",
+    "phoneNumber": "1234567890",
+    "experience": "10",
+    "address": "123 Health St, Heart City"
+}
+
+
+GET: Get All Doctors
+URL: http://localhost:3000/api/doctors/
+Method: GET
+gets all the details of registered users
+
+
+GET: Get Doctor by Email
+URL: http://localhost:3000/api/doctors/email/copyOFjohndoe@example.com
+Method: GET
+Expected Response (if the doctor is found):
+
+{
+  "_id": "672994f1a92283e2788d47df",
+  "name": "copyOFDr. John Doe",
+  "email": "copyOFjohndoe@example.com",
+  "speciality": "Cardiology",
+  "phoneNumber": "1234567890",
+  "experience": "10",
+  "address": "123 Health St, Heart City",
+  "createdAt": "2024-11-05T03:45:53.879Z",
+  "updatedAt": "2024-11-05T03:45:53.879Z",
+  "__v": 0
+}
+
+DELETE: Delete Doctor by Email
+URL: http://localhost:3000/api/doctors/delete/copyOFjohndoe@example.com
+Method: DELETE
+Expected Response (if the doctor is successfully deleted):
+{
+    "message": "Doctor deleted successfully"
+}
+
+
+app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
+  // req.files is array of `photos` files
+  // req.body will contain the text fields, if there were any
+})
